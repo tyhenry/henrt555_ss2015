@@ -1,0 +1,3 @@
+#w03_h01
+
+Color transition inspired by the recent SuperBloodMoon lunar eclipse.  It transitions between white, black and red and back again to white over 10 seconds.  I started with bloodMoon_tryFail.frag, and then restarted the code breaking it down into a timing function (timekeeper.frag) and color transition function (bloodMoonColors.frag).  I put these together to create bloodMoon.frag, the finished shader.
