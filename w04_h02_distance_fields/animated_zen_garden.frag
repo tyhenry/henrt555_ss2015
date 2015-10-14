@@ -8,7 +8,7 @@ uniform float u_time;
 
 void main(){
   vec2 st = gl_FragCoord.xy/u_resolution.xy;
-  st.x *= u_resolution.x/u_resolution.y;
+  //st.x *= u_resolution.x/u_resolution.y;
   vec3 color = vec3(0.0);
   float d = 0.0;
 
@@ -16,9 +16,11 @@ void main(){
   st = st *2.-1.;
 
   // Make the distance field
-  d = length( abs(st)-.3 );
-  // d = length( min(abs(st)-.3,0.) );
-  // d = length( max(abs(st)-.3,0.) );
+   d = length( min(abs(st)-.3,0.) );
+   d /= length( max(abs(st)-.3,0.) );
+   d *= length( max(abs(st)-.3,0.) );
+   d += length( abs(st)-.5 );
+
 
   // Visualize the distance field
   gl_FragColor = vec4(vec3(fract(d* (sin(u_time*0.01))*1000.+1.0)),1.0);

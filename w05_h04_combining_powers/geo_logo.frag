@@ -43,8 +43,8 @@ void main(){
   vec3 color3 = vec3(1.0-smoothstep(.5,.51,d2));
   vec3 nodeN = clamp(color1 - color2 - color3, 0.0, 1.0);
 
-  vec3 hex = 1. - vec3(smoothstep(.8,.81,d1));
-  hex *= vec3(0.506,0.737,0.290); //make it green
+  vec3 hexShape = 1. - vec3(smoothstep(.8,.81,d1));
+  vec3 hex = hexShape * vec3(0.506,0.737,0.290); //make it green
 
   color = hex - nodeN;
 
