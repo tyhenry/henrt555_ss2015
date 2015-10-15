@@ -99,11 +99,27 @@ void main(){
     pos = translate(vec2(.5), pos);
     pos = translate(vec2(-scaleAmt), pos);
 
-
-
-
     // Add the shape on the foreground
     color += vec3(cross(pos.xy,0.25));
+
+    pos = translate(vec2(-.5), pos);
+    pos = scale(vec2(scaleAmt*6.), pos);
+    pos = rotate(scaleAmt*10., pos);
+    pos = translate(vec2(.5), pos);
+    pos = translate(vec2(-scaleAmt), pos);
+
+        // Add the shape on the foreground
+    color += vec3(cross(pos.xy,0.25));
+
+        pos = translate(vec2(-.5), pos);
+    pos = scale(vec2(scaleAmt*6.), pos);
+    pos = rotate(scaleAmt*10., pos);
+    pos = translate(vec2(.5), pos);
+    pos = translate(vec2(-scaleAmt), pos);
+
+        // Add the shape on the foreground
+    color += vec3(cross(pos.xy,0.25));
+
 
     gl_FragColor = vec4(color,1.0);
 }
