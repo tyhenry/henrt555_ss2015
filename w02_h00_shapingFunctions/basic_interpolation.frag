@@ -20,7 +20,7 @@ void main(){
 	vec2 st = gl_FragCoord.xy/u_resolution; //normalize coords
 
 	//float y = st.x;  //linear interpolation (y=x)
-	float y = pow(st.x,5.0); //power interpolation
+	//float y = pow(st.x,5.0); //power interpolation
 	//float y = sqrt(st.x); //square root
 	//float y = exp(st.x); //exponential - all white?
 	//float y = log(st.x); //logarithmic - all black?
