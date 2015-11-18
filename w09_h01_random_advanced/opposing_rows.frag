@@ -6,62 +6,37 @@ uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform float u_time;
 
-vec3 green = vec3(0.,.7,0.);
-
 float random (float x){
 	return fract(sin(x)*10e5);
-}
-
-//custom map function (clamps)
-float map(float val, float lo, float hi, float newLo, float newHi){
-
-	//clamp
-	if (val < lo){
-		return newLo;
-	}
-	if (val > hi){
-		return newHi;
-	}
-
-	float origRange = hi - lo;
-	float newRange = newHi - newLo;
-
-	float pct = (val-lo)/origRange; //pct in orgRange
-	pct *= newRange; //pct in newRange
-
-	return newLo + pct; //shift pct to newLo - newHi range
 }
 
 void main(){
 	vec2 st = gl_FragCoord.xy/u_resolution.xy;
 
 	st.x *= 100.;
-	st.y *= 100.;
+	st.y *= 2.;
 
 	vec2 st_i = floor(st);
 	vec2 st_f = fract(st);
 
+	if (st_i.y == 1.){
+		st_f.y = 1. - st_f.y; //mirror bottom half
+		st_i.x = 1. - st_i.x; //flip direction
+	}
 
-	float timeControl = random(st_i.x+1.) + .1; //speed based on st_i.y
+	//float timeControl = random(floor(u_time * 4.));
+	float timeControl = u_mouse.y/u_resolution.y; //speed based on u_mouse.y
 
 	float time = floor(u_time * 40. * timeControl); //time control
+	st_i.x += time; //movement in x
 
-	st_i.y += time; //movement in x
-
-	float pct = random(st_i.y); //random value 0-1
+	float pct = random(st_i.x); //random value 0-1
 
 	float threshold = u_mouse.x/u_resolution.x; //threshold at u_mouse.x
-	//threshold = map(threshold, 0., 1., 0.3, 0.6); //re-map u_mouse.x;
 
-	if (pct > 0.96){
-		green = vec3(1.); //make white
-	}
+	pct = step(threshold,pct); //threshold pct
 
-	if (step(threshold,pct) == 0.){ //threshold pct
-		pct = 0.;
-	}
-
-	vec3 color = vec3(pct * green);
+	vec3 color = vec3(pct);
 
 	gl_FragColor = vec4(color,1.0);
 }

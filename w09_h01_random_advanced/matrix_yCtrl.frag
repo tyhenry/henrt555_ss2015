@@ -32,8 +32,10 @@ float map(float val, float lo, float hi, float newLo, float newHi, bool bClamp){
 void main(){
 	vec2 st = gl_FragCoord.xy/u_resolution.xy;
 
-	st.x *= 100.;
-	st.y *= 100.;
+	float nSegs = map(u_mouse.y/u_resolution.y, 0., 1., 1., 100., true);
+
+	st.x *= nSegs;
+	st.y *= nSegs;
 
 	vec2 st_i = floor(st);
 	vec2 st_f = fract(st);
